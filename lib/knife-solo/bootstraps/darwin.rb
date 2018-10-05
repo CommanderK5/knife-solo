@@ -13,5 +13,15 @@ module KnifeSolo::Bootstraps
         raise "OS X version #{issue} not supported"
       end
     end
+    
+    def bootstrap!
+      super
+      if issue.split('.')[1].to_i >= 11
+        # add /usr/local/bin to PATH
+        path = "/usr/local/bin"
+        path_command = "[[ $PATH == *#{path}* ]] || echo 'export PATH=#{path}:$PATH' >> ~/.bashrc"
+        run_command(path_command)
+      end
+    end
   end
 end
