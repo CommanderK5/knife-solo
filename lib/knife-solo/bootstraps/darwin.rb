@@ -7,13 +7,13 @@ module KnifeSolo::Bootstraps
 
     def distro
       case issue
-      when %r{10.(?:[6-9]|1[0-3])}
+      when %r{10.(?:[6-9]|1[0-4])}
         {:type => 'omnibus'}
       else
         raise "OS X version #{issue} not supported"
       end
     end
-    
+
     def bootstrap!
       super
       if issue.split('.')[1].to_i >= 11
