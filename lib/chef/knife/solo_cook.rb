@@ -254,7 +254,17 @@ class Chef
       end
 
       def upload(src, dest)
-        rsync(src, dest)
+        if config[:rsync]
+          rsync(src, dest)
+        elsif config[:scp]
+          scp(src, dest)
+        else
+          raise "I don't know how to upload :,("
+        end
+      end
+
+      def scp(src, dest)
+        system("scp ")
       end
 
       def upload_to_provision_path(src, dest, key_name = 'path')
